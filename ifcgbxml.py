@@ -672,7 +672,7 @@ class GBXMLBuilder:
                 area = self.root.createElement("Area")
                 area.setAttribute("unit", "SquareMeters")
                 area.appendChild(
-                    self.root.createTextNode(str(pset_area * self.area_unit_scale))
+                    self.root.createTextNode(str(float(pset_area) * self.area_unit_scale))
                 )
                 space.appendChild(area)
             else:
@@ -684,7 +684,7 @@ class GBXMLBuilder:
                 volume = self.root.createElement("Volume")
                 volume.setAttribute("unit", "CubicMeters")
                 volume.appendChild(
-                    self.root.createTextNode(str(pset_volume * self.volume_unit_scale))
+                    self.root.createTextNode(str(float(pset_volume) * self.volume_unit_scale))
                 )
                 space.appendChild(volume)
             else:
