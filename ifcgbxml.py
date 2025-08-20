@@ -9,7 +9,7 @@ import numpy as np
 import datetime
 import time
 import sys
-import os
+import getpass
 from xml.dom import minidom
 
 # Copyright (C) 2016-2023
@@ -1235,14 +1235,14 @@ class GBXMLBuilder:
         # Add person info
         person_info = self.root.createElement("PersonInfo")
         person_info.setAttribute(
-            "id", XMLIdFormatter.remove_unnecessary_characters(os.getlogin())
+            "id", XMLIdFormatter.remove_unnecessary_characters(getpass.getuser())
         )
         document_history.appendChild(person_info)
 
         # Add created by info
         created_by = self.root.createElement("CreatedBy")
         created_by.setAttribute(
-            "personId", XMLIdFormatter.remove_unnecessary_characters(os.getlogin())
+            "personId", XMLIdFormatter.remove_unnecessary_characters(getpass.getuser())
         )
         created_by.setAttribute("programId", "IFC_gbXML_Convert")
         today = datetime.date.today()
