@@ -402,7 +402,7 @@ class GBXMLBuilder:
         self.gbxml.setAttribute("areaUnit", "SquareMeters")
         self.gbxml.setAttribute("volumeUnit", "CubicMeters")
         self.gbxml.setAttribute("useSIUnitsForResults", "true")
-        self.gbxml.setAttribute("version", "0.37")
+        self.gbxml.setAttribute("version", "6.01")
 
         self.initialize_unit_scales()
 
@@ -519,6 +519,9 @@ class GBXMLBuilder:
             # Process buildings in the site
             self.build_buildings(campus, ifc_site)
 
+            # surfaces need to be in the campus
+            self.build_surfaces(campus)
+
     def build_location(self, campus, ifc_site):
         """Build the Location element for a site."""
         location = self.root.createElement("Location")
@@ -544,7 +547,7 @@ class GBXMLBuilder:
         zipcode = self.root.createElement("ZipcodeOrPostalCode")
         location.appendChild(zipcode)
 
-        if ifc_postal_address:
+        if ifc_postal_address and ifc_postal_address.PostalCode:
             zipcode.appendChild(self.root.createTextNode(ifc_postal_address.PostalCode))
 
             name = self.root.createElement("Name")
@@ -752,7 +755,7 @@ class GBXMLBuilder:
             else:
                 print("WARNING: Element is not a Boundary Element")
 
-    def build_surfaces(self):
+    def build_surfaces(self, campus):
         """Build the Surface elements from space boundaries."""
         for ifc_rel_space_boundary in self.ifc_file.by_type("IfcRelSpaceBoundary"):
             ifc_building_element = ifc_rel_space_boundary.RelatedBuildingElement
@@ -787,11 +790,11 @@ class GBXMLBuilder:
             # Create Surface elements for boundary elements
             if IFCEntityAnalyzer.is_boundary_element(ifc_building_element):
                 self.create_surface_element(
-                    ifc_rel_space_boundary, ifc_building_element, vertices
+                    campus, ifc_rel_space_boundary, ifc_building_element, vertices
                 )
 
     def create_surface_element(
-        self, ifc_rel_space_boundary, ifc_building_element, vertices
+        self, campus, ifc_rel_space_boundary, ifc_building_element, vertices
     ):
         """Create a Surface element for a space boundary."""
         surface = self.root.createElement("Surface")
@@ -862,7 +865,7 @@ class GBXMLBuilder:
         )
         surface.appendChild(cad_object_id)
 
-        self.gbxml.appendChild(surface)
+        campus.appendChild(surface)
 
     def build_openings(self):
         """Build the Opening elements for windows and doors."""
@@ -1257,7 +1260,6 @@ class GBXMLBuilder:
         """Build the complete gbXML document."""
         self.initialize_document()
         self.build_campus()
-        self.build_surfaces()
         self.build_openings()
         self.build_window_types()
         self.build_constructions()
