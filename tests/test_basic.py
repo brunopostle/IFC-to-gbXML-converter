@@ -270,7 +270,7 @@ class TestGBXMLBuilder:
         assert builder.gbxml.getAttribute("areaUnit") == "SquareMeters"
         assert builder.gbxml.getAttribute("volumeUnit") == "CubicMeters"
         assert builder.gbxml.getAttribute("useSIUnitsForResults") == "true"
-        assert builder.gbxml.getAttribute("version") == "0.37"
+        assert builder.gbxml.getAttribute("version") == "6.01"
     
     def test_set_surface_type_wall_external(self, builder):
         """Test surface type setting for external wall."""
