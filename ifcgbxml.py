@@ -402,7 +402,7 @@ class GBXMLBuilder:
         self.gbxml.setAttribute("areaUnit", "SquareMeters")
         self.gbxml.setAttribute("volumeUnit", "CubicMeters")
         self.gbxml.setAttribute("useSIUnitsForResults", "true")
-        self.gbxml.setAttribute("version", "6.01")
+        self.gbxml.setAttribute("version", "7.03")
 
         self.initialize_unit_scales()
 
@@ -808,27 +808,28 @@ class GBXMLBuilder:
         # Set the surface type based on the building element type
         self.set_surface_type(surface, ifc_rel_space_boundary, ifc_building_element)
 
-        # Set construction ID reference
-        ifc_material_layer_set = IFCEntityAnalyzer.get_material_layer_set(
-            ifc_building_element
-        )
-
-        if ifc_material_layer_set:
-            surface.setAttribute(
-                "constructionIdRef",
-                XMLIdFormatter.fix_xml_construction(str(ifc_material_layer_set.id())),
-            )
-        else:
-            # elements without a layer set may have u-value property
-            ifc_building_element_type = IFCEntityAnalyzer.get_element_or_type(
+        if not ifc_building_element.is_a("IfcVirtualElement"):
+            # Set construction ID reference
+            ifc_material_layer_set = IFCEntityAnalyzer.get_material_layer_set(
                 ifc_building_element
             )
-            surface.setAttribute(
-                "constructionIdRef",
-                XMLIdFormatter.fix_xml_construction(
-                    str(ifc_building_element_type.id())
-                ),
-            )
+
+            if ifc_material_layer_set:
+                surface.setAttribute(
+                    "constructionIdRef",
+                    XMLIdFormatter.fix_xml_construction(str(ifc_material_layer_set.id())),
+                )
+            else:
+                # elements without a layer set may have u-value property
+                ifc_building_element_type = IFCEntityAnalyzer.get_element_or_type(
+                    ifc_building_element
+                )
+                surface.setAttribute(
+                    "constructionIdRef",
+                    XMLIdFormatter.fix_xml_construction(
+                        str(ifc_building_element_type.id())
+                    ),
+                )
 
         # Add name
         name = self.root.createElement("Name")
@@ -1064,6 +1065,8 @@ class GBXMLBuilder:
             # Make sure a 'SpaceBoundary' is representing an actual element
             ifc_building_element = ifc_rel_space_boundary.RelatedBuildingElement
             if ifc_building_element is None:
+                continue
+            if ifc_building_element.is_a("IfcVirtualElement"):
                 continue
 
             if IFCEntityAnalyzer.get_parent_boundary(ifc_rel_space_boundary):
