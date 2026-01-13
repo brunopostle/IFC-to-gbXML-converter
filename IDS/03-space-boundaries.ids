@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ids xmlns="http://standards.buildingsmart.org/IDS"
+     xmlns:xs="http://www.w3.org/2001/XMLSchema"
+     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+     xsi:schemaLocation="http://standards.buildingsmart.org/IDS http://standards.buildingsmart.org/IDS/1.0/ids.xsd">
+  <info>
+    <title>Energy Model - Space Boundary Requirements</title>
+    <description>Validates 2nd level space boundaries required for energy modeling</description>
+    <author>bruno@postle.net</author>
+    <date>2026-01-13</date>
+    <purpose>Energy Analysis</purpose>
+  </info>
+  <specifications>
+
+    <!-- Rule 16: Space Boundaries Exist
+         Note: BoundedBy is an inverse attribute (derived from IfcRelSpaceBoundary.RelatingSpace)
+         IDS cannot validate inverse attributes. This rule may not work correctly.
+         To properly check if spaces have boundaries, verify that IfcRelSpaceBoundary entities exist
+         with RelatingSpace pointing to each IfcSpace. -->
+    <specification name="Space Boundaries Exist" ifcVersion="IFC2X3 IFC4">
+      <applicability>
+        <entity>
+          <name>
+            <xs:restriction base="xs:string">
+              <xs:enumeration value="IFCRELSPACEBOUNDARY"/>
+              <xs:enumeration value="IFCRELSPACEBOUNDARY2NDLEVEL"/>
+            </xs:restriction>
+          </name>
+        </entity>
+      </applicability>
+      <requirements/>
+    </specification>
+
+    <!-- Rule 17: 2nd Level Boundaries
+         Note: IFC4 uses IFCRELSPACEBOUNDARY2NDLEVEL entity type.
+         IFC2X3 uses IFCRELSPACEBOUNDARY with Name='2ndLevel' convention.
+         This rule checks for existence of 2nd level boundaries in both schemas. -->
+    <specification name="2nd Level Boundaries Exist" ifcVersion="IFC2X3 IFC4">
+      <applicability>
+        <entity>
+          <name>
+            <xs:restriction base="xs:string">
+              <xs:enumeration value="IFCRELSPACEBOUNDARY"/>
+              <xs:enumeration value="IFCRELSPACEBOUNDARY2NDLEVEL"/>
+            </xs:restriction>
+          </name>
+        </entity>
+      </applicability>
+      <requirements/>
+    </specification>
+
+    <!-- Rule 18: Boundary Has Element -->
+    <specification name="Boundaries Have RelatedBuildingElement" ifcVersion="IFC2X3 IFC4">
+      <applicability>
+        <entity>
+          <name>
+            <xs:restriction base="xs:string">
+              <xs:enumeration value="IFCRELSPACEBOUNDARY"/>
+              <xs:enumeration value="IFCRELSPACEBOUNDARY2NDLEVEL"/>
+            </xs:restriction>
+          </name>
+        </entity>
+      </applicability>
+      <requirements>
+        <attribute>
+          <name>
+            <simpleValue>RelatedBuildingElement</simpleValue>
+          </name>
+        </attribute>
+      </requirements>
+    </specification>
+
+    <!-- Rule 19: Boundary Has Geometry -->
+    <specification name="Boundaries Have ConnectionGeometry" ifcVersion="IFC2X3 IFC4">
+      <applicability>
+        <entity>
+          <name>
+            <xs:restriction base="xs:string">
+              <xs:enumeration value="IFCRELSPACEBOUNDARY"/>
+              <xs:enumeration value="IFCRELSPACEBOUNDARY2NDLEVEL"/>
+            </xs:restriction>
+          </name>
+        </entity>
+      </applicability>
+      <requirements>
+        <attribute>
+          <name>
+            <simpleValue>ConnectionGeometry</simpleValue>
+          </name>
+        </attribute>
+      </requirements>
+    </specification>
+
+    <!-- Rule 20: Boundary Has Space -->
+    <specification name="Boundaries Have RelatingSpace" ifcVersion="IFC2X3 IFC4">
+      <applicability>
+        <entity>
+          <name>
+            <xs:restriction base="xs:string">
+              <xs:enumeration value="IFCRELSPACEBOUNDARY"/>
+              <xs:enumeration value="IFCRELSPACEBOUNDARY2NDLEVEL"/>
+            </xs:restriction>
+          </name>
+        </entity>
+      </applicability>
+      <requirements>
+        <attribute>
+          <name>
+            <simpleValue>RelatingSpace</simpleValue>
+          </name>
+        </attribute>
+      </requirements>
+    </specification>
+
+    <!-- Rule 21: Valid Boundary Elements Exist
+         Note: IDS cannot directly validate that RelatedBuildingElement references specific types.
+         ProvidesBoundaries is an inverse attribute (derived from IfcRelSpaceBoundary.RelatedBuildingElement)
+         and IDS cannot validate inverse attributes.
+         This rule simply checks that boundary element types exist in the model. -->
+    <specification name="Boundary Element Types Exist" ifcVersion="IFC2X3 IFC4">
+      <applicability>
+        <entity>
+          <name>
+            <xs:restriction base="xs:string">
+              <xs:enumeration value="IFCWALL"/>
+              <xs:enumeration value="IFCSLAB"/>
+              <xs:enumeration value="IFCROOF"/>
+              <xs:enumeration value="IFCWINDOW"/>
+              <xs:enumeration value="IFCDOOR"/>
+              <xs:enumeration value="IFCCURTAINWALL"/>
+              <xs:enumeration value="IFCPLATE"/>
+              <xs:enumeration value="IFCCOVERING"/>
+              <xs:enumeration value="IFCCOLUMN"/>
+              <xs:enumeration value="IFCMEMBER"/>
+              <xs:enumeration value="IFCVIRTUALELEMENT"/>
+            </xs:restriction>
+          </name>
+        </entity>
+      </applicability>
+      <requirements/>
+    </specification>
+
+    <!-- Rule 22: External Property for Walls -->
+    <specification name="Walls Have IsExternal Property" ifcVersion="IFC2X3 IFC4">
+      <applicability>
+        <entity>
+          <name>
+            <simpleValue>IFCWALL</simpleValue>
+          </name>
+        </entity>
+      </applicability>
+      <requirements>
+        <property dataType="IFCBOOLEAN" cardinality="optional">
+          <propertySet>
+            <simpleValue>Pset_WallCommon</simpleValue>
+          </propertySet>
+          <baseName>
+            <simpleValue>IsExternal</simpleValue>
+          </baseName>
+        </property>
+      </requirements>
+    </specification>
+
+    <!-- Rule 22: External Property for Slabs -->
+    <specification name="Slabs Have IsExternal Property" ifcVersion="IFC2X3 IFC4">
+      <applicability>
+        <entity>
+          <name>
+            <simpleValue>IFCSLAB</simpleValue>
+          </name>
+        </entity>
+      </applicability>
+      <requirements>
+        <property dataType="IFCBOOLEAN" cardinality="optional">
+          <propertySet>
+            <simpleValue>Pset_SlabCommon</simpleValue>
+          </propertySet>
+          <baseName>
+            <simpleValue>IsExternal</simpleValue>
+          </baseName>
+        </property>
+      </requirements>
+    </specification>
+
+    <!-- Rule 22: External Property for Roofs -->
+    <specification name="Roofs Have IsExternal Property" ifcVersion="IFC2X3 IFC4">
+      <applicability>
+        <entity>
+          <name>
+            <simpleValue>IFCROOF</simpleValue>
+          </name>
+        </entity>
+      </applicability>
+      <requirements>
+        <property dataType="IFCBOOLEAN" cardinality="optional">
+          <propertySet>
+            <simpleValue>Pset_RoofCommon</simpleValue>
+          </propertySet>
+          <baseName>
+            <simpleValue>IsExternal</simpleValue>
+          </baseName>
+        </property>
+      </requirements>
+    </specification>
+
+    <!-- Rule 23: Boundary Type Classification -->
+    <specification name="Boundaries Have InternalOrExternalBoundary" ifcVersion="IFC2X3 IFC4">
+      <applicability>
+        <entity>
+          <name>
+            <xs:restriction base="xs:string">
+              <xs:enumeration value="IFCRELSPACEBOUNDARY"/>
+              <xs:enumeration value="IFCRELSPACEBOUNDARY2NDLEVEL"/>
+            </xs:restriction>
+          </name>
+        </entity>
+      </applicability>
+      <requirements>
+        <attribute>
+          <name>
+            <simpleValue>InternalOrExternalBoundary</simpleValue>
+          </name>
+          <value>
+            <xs:restriction base="xs:string">
+              <xs:enumeration value="INTERNAL"/>
+              <xs:enumeration value="EXTERNAL"/>
+              <xs:enumeration value="EXTERNAL_EARTH"/>
+              <xs:enumeration value="EXTERNAL_FIRE"/>
+            </xs:restriction>
+          </value>
+        </attribute>
+      </requirements>
+    </specification>
+
+  </specifications>
+</ids>

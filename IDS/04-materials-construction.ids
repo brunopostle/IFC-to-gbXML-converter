@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ids xmlns="http://standards.buildingsmart.org/IDS"
+     xmlns:xs="http://www.w3.org/2001/XMLSchema"
+     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+     xsi:schemaLocation="http://standards.buildingsmart.org/IDS http://standards.buildingsmart.org/IDS/1.0/ids.xsd">
+  <info>
+    <title>Energy Model - Materials and Construction Requirements</title>
+    <description>Validates material layer sets and construction assemblies for energy modeling</description>
+    <author>bruno@postle.net</author>
+    <date>2026-01-13</date>
+    <purpose>Energy Analysis</purpose>
+  </info>
+  <specifications>
+
+    <!-- Rule 24: Material Association - Walls -->
+    <specification name="Walls Have Material Association" ifcVersion="IFC2X3 IFC4">
+      <applicability>
+        <entity>
+          <name>
+            <simpleValue>IFCWALL</simpleValue>
+          </name>
+        </entity>
+      </applicability>
+      <requirements>
+        <material/>
+      </requirements>
+    </specification>
+
+    <!-- Rule 24: Material Association - Slabs -->
+    <specification name="Slabs Have Material Association" ifcVersion="IFC2X3 IFC4">
+      <applicability>
+        <entity>
+          <name>
+            <simpleValue>IFCSLAB</simpleValue>
+          </name>
+        </entity>
+      </applicability>
+      <requirements>
+        <material/>
+      </requirements>
+    </specification>
+
+    <!-- Rule 24: Material Association - Roofs -->
+    <specification name="Roofs Have Material Association" ifcVersion="IFC2X3 IFC4">
+      <applicability>
+        <entity>
+          <name>
+            <simpleValue>IFCROOF</simpleValue>
+          </name>
+        </entity>
+      </applicability>
+      <requirements>
+        <material/>
+      </requirements>
+    </specification>
+
+    <!-- Rule 26: Layer Set Name -->
+    <specification name="Material Layer Set Has Name" ifcVersion="IFC2X3 IFC4">
+      <applicability>
+        <entity>
+          <name>
+            <simpleValue>IFCMATERIALLAYERSET</simpleValue>
+          </name>
+        </entity>
+      </applicability>
+      <requirements>
+        <attribute>
+          <name>
+            <simpleValue>LayerSetName</simpleValue>
+          </name>
+        </attribute>
+      </requirements>
+    </specification>
+
+    <!-- Rule 27: Material Layers Exist -->
+    <specification name="Material Layer Set Has Layers" ifcVersion="IFC2X3 IFC4">
+      <applicability>
+        <entity>
+          <name>
+            <simpleValue>IFCMATERIALLAYERSET</simpleValue>
+          </name>
+        </entity>
+      </applicability>
+      <requirements>
+        <attribute>
+          <name>
+            <simpleValue>MaterialLayers</simpleValue>
+          </name>
+        </attribute>
+      </requirements>
+    </specification>
+
+    <!-- Rule 28: Layer Material -->
+    <specification name="Material Layer References Material" ifcVersion="IFC2X3 IFC4">
+      <applicability>
+        <entity>
+          <name>
+            <simpleValue>IFCMATERIALLAYER</simpleValue>
+          </name>
+        </entity>
+      </applicability>
+      <requirements>
+        <attribute>
+          <name>
+            <simpleValue>Material</simpleValue>
+          </name>
+        </attribute>
+      </requirements>
+    </specification>
+
+    <!-- Rule 29: Layer Thickness -->
+    <specification name="Material Layer Has Thickness" ifcVersion="IFC2X3 IFC4">
+      <applicability>
+        <entity>
+          <name>
+            <simpleValue>IFCMATERIALLAYER</simpleValue>
+          </name>
+        </entity>
+      </applicability>
+      <requirements>
+        <attribute>
+          <name>
+            <simpleValue>LayerThickness</simpleValue>
+          </name>
+          <value>
+            <xs:restriction base="xs:double">
+              <xs:minExclusive value="0"/>
+            </xs:restriction>
+          </value>
+        </attribute>
+      </requirements>
+    </specification>
+
+    <!-- Rule 30: Material Name -->
+    <specification name="Material Has Name" ifcVersion="IFC2X3 IFC4">
+      <applicability>
+        <entity>
+          <name>
+            <simpleValue>IFCMATERIAL</simpleValue>
+          </name>
+        </entity>
+      </applicability>
+      <requirements>
+        <attribute>
+          <name>
+            <simpleValue>Name</simpleValue>
+          </name>
+        </attribute>
+      </requirements>
+    </specification>
+
+  </specifications>
+</ids>

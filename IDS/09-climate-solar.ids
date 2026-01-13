@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ids xmlns="http://standards.buildingsmart.org/IDS"
+     xmlns:xs="http://www.w3.org/2001/XMLSchema"
+     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+     xsi:schemaLocation="http://standards.buildingsmart.org/IDS http://standards.buildingsmart.org/IDS/1.0/ids.xsd">
+  <info>
+    <title>Energy Model - Climate and Solar Requirements</title>
+    <description>Validates climate data, building orientation, and solar control elements for energy modeling</description>
+    <author>bruno@postle.net</author>
+    <date>2026-01-13</date>
+    <purpose>Energy Analysis</purpose>
+  </info>
+  <specifications>
+
+    <!-- Rule 66: Building True North -->
+    <specification name="Project Has True North" ifcVersion="IFC2X3 IFC4">
+      <applicability>
+        <entity>
+          <name>
+            <simpleValue>IFCPROJECT</simpleValue>
+          </name>
+        </entity>
+      </applicability>
+      <requirements>
+        <attribute instructions="Project should have IfcGeometricRepresentationContext with TrueNorth defined">
+          <name>
+            <simpleValue>RepresentationContexts</simpleValue>
+          </name>
+        </attribute>
+      </requirements>
+    </specification>
+
+    <!-- Rule 67: Design Ambient Temperature -->
+    <specification name="Building Has Design Ambient Temperature" ifcVersion="IFC2X3 IFC4">
+      <applicability>
+        <entity>
+          <name>
+            <simpleValue>IFCBUILDING</simpleValue>
+          </name>
+        </entity>
+      </applicability>
+      <requirements>
+        <property dataType="IFCTHERMODYNAMICTEMPERATUREMEASURE" cardinality="optional">
+          <propertySet>
+            <simpleValue>Pset_BuildingCommon</simpleValue>
+          </propertySet>
+          <baseName>
+            <simpleValue>DesignAmbientTemperature</simpleValue>
+          </baseName>
+        </property>
+      </requirements>
+    </specification>
+
+  </specifications>
+</ids>

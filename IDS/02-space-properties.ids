@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ids xmlns="http://standards.buildingsmart.org/IDS"
+     xmlns:xs="http://www.w3.org/2001/XMLSchema"
+     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+     xsi:schemaLocation="http://standards.buildingsmart.org/IDS http://standards.buildingsmart.org/IDS/1.0/ids.xsd">
+  <info>
+    <title>Energy Model - Space Properties Requirements</title>
+    <description>Validates space properties required for energy modeling (area, volume, conditioning, occupancy)</description>
+    <author>bruno@postle.net</author>
+    <date>2026-01-13</date>
+    <purpose>Energy Analysis</purpose>
+  </info>
+  <specifications>
+
+    <!-- Rule 10: Space Area (IFC4 - Qto) -->
+    <specification name="Space Has NetFloorArea (IFC4 Qto)" ifcVersion="IFC4">
+      <applicability>
+        <entity>
+          <name>
+            <simpleValue>IFCSPACE</simpleValue>
+          </name>
+        </entity>
+      </applicability>
+      <requirements>
+        <property dataType="IFCAREAMEASURE" cardinality="optional">
+          <propertySet>
+            <simpleValue>Qto_SpaceBaseQuantities</simpleValue>
+          </propertySet>
+          <baseName>
+            <simpleValue>NetFloorArea</simpleValue>
+          </baseName>
+        </property>
+      </requirements>
+    </specification>
+
+    <!-- Rule 10: Space Area (IFC4 - Pset) -->
+    <specification name="Space Has NetPlannedArea (IFC4 Pset)" ifcVersion="IFC4">
+      <applicability>
+        <entity>
+          <name>
+            <simpleValue>IFCSPACE</simpleValue>
+          </name>
+        </entity>
+      </applicability>
+      <requirements>
+        <property dataType="IFCAREAMEASURE" cardinality="optional">
+          <propertySet>
+            <simpleValue>Pset_SpaceCommon</simpleValue>
+          </propertySet>
+          <baseName>
+            <simpleValue>NetPlannedArea</simpleValue>
+          </baseName>
+        </property>
+      </requirements>
+    </specification>
+
+    <!-- Rule 10: Space Area (IFC2X3) -->
+    <specification name="Space Has NetFloorArea (IFC2X3)" ifcVersion="IFC2X3">
+      <applicability>
+        <entity>
+          <name>
+            <simpleValue>IFCSPACE</simpleValue>
+          </name>
+        </entity>
+      </applicability>
+      <requirements>
+        <property dataType="IFCAREAMEASURE" cardinality="optional">
+          <propertySet>
+            <simpleValue>BaseQuantities</simpleValue>
+          </propertySet>
+          <baseName>
+            <simpleValue>NetFloorArea</simpleValue>
+          </baseName>
+        </property>
+      </requirements>
+    </specification>
+
+    <!-- Rule 11: Space Volume (IFC4) -->
+    <specification name="Space Has NetVolume (IFC4)" ifcVersion="IFC4">
+      <applicability>
+        <entity>
+          <name>
+            <simpleValue>IFCSPACE</simpleValue>
+          </name>
+        </entity>
+      </applicability>
+      <requirements>
+        <property dataType="IFCVOLUMEMEASURE" cardinality="optional">
+          <propertySet>
+            <simpleValue>Qto_SpaceBaseQuantities</simpleValue>
+          </propertySet>
+          <baseName>
+            <simpleValue>NetVolume</simpleValue>
+          </baseName>
+        </property>
+      </requirements>
+    </specification>
+
+    <!-- Rule 11: Space Volume (IFC2X3) -->
+    <specification name="Space Has GrossVolume (IFC2X3)" ifcVersion="IFC2X3">
+      <applicability>
+        <entity>
+          <name>
+            <simpleValue>IFCSPACE</simpleValue>
+          </name>
+        </entity>
+      </applicability>
+      <requirements>
+        <property dataType="IFCVOLUMEMEASURE" cardinality="optional">
+          <propertySet>
+            <simpleValue>BaseQuantities</simpleValue>
+          </propertySet>
+          <baseName>
+            <simpleValue>GrossVolume</simpleValue>
+          </baseName>
+        </property>
+      </requirements>
+    </specification>
+
+    <!-- Rule 12: Space Name -->
+    <specification name="Space Has Name" ifcVersion="IFC2X3 IFC4">
+      <applicability>
+        <entity>
+          <name>
+            <simpleValue>IFCSPACE</simpleValue>
+          </name>
+        </entity>
+      </applicability>
+      <requirements>
+        <attribute>
+          <name>
+            <simpleValue>Name</simpleValue>
+          </name>
+        </attribute>
+      </requirements>
+    </specification>
+
+    <!-- Rule 13: Space Category -->
+    <specification name="Space Has Category" ifcVersion="IFC2X3 IFC4">
+      <applicability>
+        <entity>
+          <name>
+            <simpleValue>IFCSPACE</simpleValue>
+          </name>
+        </entity>
+      </applicability>
+      <requirements>
+        <property dataType="IFCLABEL" cardinality="optional">
+          <propertySet>
+            <simpleValue>Pset_SpaceCommon</simpleValue>
+          </propertySet>
+          <baseName>
+            <simpleValue>Category</simpleValue>
+          </baseName>
+        </property>
+      </requirements>
+    </specification>
+
+    <!-- Rule 13: Space PredefinedType -->
+    <specification name="Space Has PredefinedType" ifcVersion="IFC4">
+      <applicability>
+        <entity>
+          <name>
+            <simpleValue>IFCSPACE</simpleValue>
+          </name>
+        </entity>
+      </applicability>
+      <requirements>
+        <attribute>
+          <name>
+            <simpleValue>PredefinedType</simpleValue>
+          </name>
+        </attribute>
+      </requirements>
+    </specification>
+
+    <!-- Rule 14: Space Conditioning -->
+    <specification name="Space IsConditioned Property" ifcVersion="IFC2X3 IFC4">
+      <applicability>
+        <entity>
+          <name>
+            <simpleValue>IFCSPACE</simpleValue>
+          </name>
+        </entity>
+      </applicability>
+      <requirements>
+        <property dataType="IFCBOOLEAN" cardinality="optional">
+          <propertySet>
+            <simpleValue>Pset_SpaceCommon</simpleValue>
+          </propertySet>
+          <baseName>
+            <simpleValue>IsConditioned</simpleValue>
+          </baseName>
+        </property>
+      </requirements>
+    </specification>
+
+    <!-- Rule 15: Space Height -->
+    <specification name="Space Has Height (IFC4)" ifcVersion="IFC4">
+      <applicability>
+        <entity>
+          <name>
+            <simpleValue>IFCSPACE</simpleValue>
+          </name>
+        </entity>
+      </applicability>
+      <requirements>
+        <property dataType="IFCLENGTHMEASURE" cardinality="optional">
+          <propertySet>
+            <simpleValue>Qto_SpaceBaseQuantities</simpleValue>
+          </propertySet>
+          <baseName>
+            <simpleValue>Height</simpleValue>
+          </baseName>
+        </property>
+      </requirements>
+    </specification>
+
+  </specifications>
+</ids>

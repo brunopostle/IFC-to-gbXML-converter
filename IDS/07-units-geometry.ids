@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ids xmlns="http://standards.buildingsmart.org/IDS"
+     xmlns:xs="http://www.w3.org/2001/XMLSchema"
+     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+     xsi:schemaLocation="http://standards.buildingsmart.org/IDS http://standards.buildingsmart.org/IDS/1.0/ids.xsd">
+  <info>
+    <title>Energy Model - Units and Geometry Requirements</title>
+    <description>Validates project units and geometric placement for energy modeling</description>
+    <author>bruno@postle.net</author>
+    <date>2026-01-13</date>
+    <purpose>Energy Analysis</purpose>
+  </info>
+  <specifications>
+
+    <!-- Rule 52: Length Unit -->
+    <specification name="Project Has Length Unit" ifcVersion="IFC2X3 IFC4">
+      <applicability>
+        <entity>
+          <name>
+            <simpleValue>IFCPROJECT</simpleValue>
+          </name>
+        </entity>
+      </applicability>
+      <requirements>
+        <attribute instructions="Project must have unit assignment with LENGTHUNIT">
+          <name>
+            <simpleValue>UnitsInContext</simpleValue>
+          </name>
+        </attribute>
+      </requirements>
+    </specification>
+
+    <!-- Rule 53: Area Unit -->
+    <specification name="Project Has Area Unit" ifcVersion="IFC2X3 IFC4">
+      <applicability>
+        <entity>
+          <name>
+            <simpleValue>IFCPROJECT</simpleValue>
+          </name>
+        </entity>
+      </applicability>
+      <requirements>
+        <attribute instructions="Project must have unit assignment with AREAUNIT">
+          <name>
+            <simpleValue>UnitsInContext</simpleValue>
+          </name>
+        </attribute>
+      </requirements>
+    </specification>
+
+    <!-- Rule 54: Volume Unit -->
+    <specification name="Project Has Volume Unit" ifcVersion="IFC2X3 IFC4">
+      <applicability>
+        <entity>
+          <name>
+            <simpleValue>IFCPROJECT</simpleValue>
+          </name>
+        </entity>
+      </applicability>
+      <requirements>
+        <attribute instructions="Project must have unit assignment with VOLUMEUNIT">
+          <name>
+            <simpleValue>UnitsInContext</simpleValue>
+          </name>
+        </attribute>
+      </requirements>
+    </specification>
+
+    <!-- Rule 68: Element Placement - Buildings -->
+    <specification name="Buildings Have Object Placement" ifcVersion="IFC2X3 IFC4">
+      <applicability>
+        <entity>
+          <name>
+            <simpleValue>IFCBUILDING</simpleValue>
+          </name>
+        </entity>
+      </applicability>
+      <requirements>
+        <attribute>
+          <name>
+            <simpleValue>ObjectPlacement</simpleValue>
+          </name>
+        </attribute>
+      </requirements>
+    </specification>
+
+    <!-- Rule 68: Element Placement - Building Storeys -->
+    <specification name="Building Storeys Have Object Placement" ifcVersion="IFC2X3 IFC4">
+      <applicability>
+        <entity>
+          <name>
+            <simpleValue>IFCBUILDINGSTOREY</simpleValue>
+          </name>
+        </entity>
+      </applicability>
+      <requirements>
+        <attribute>
+          <name>
+            <simpleValue>ObjectPlacement</simpleValue>
+          </name>
+        </attribute>
+      </requirements>
+    </specification>
+
+    <!-- Rule 68: Element Placement - Spaces -->
+    <specification name="Spaces Have Object Placement" ifcVersion="IFC2X3 IFC4">
+      <applicability>
+        <entity>
+          <name>
+            <simpleValue>IFCSPACE</simpleValue>
+          </name>
+        </entity>
+      </applicability>
+      <requirements>
+        <attribute>
+          <name>
+            <simpleValue>ObjectPlacement</simpleValue>
+          </name>
+        </attribute>
+      </requirements>
+    </specification>
+
+    <!-- Rule 68: Element Placement - Building Elements -->
+    <specification name="Building Elements Have Object Placement" ifcVersion="IFC2X3 IFC4">
+      <applicability>
+        <entity>
+          <name>
+            <xs:restriction base="xs:string">
+              <xs:enumeration value="IFCWALL"/>
+              <xs:enumeration value="IFCSLAB"/>
+              <xs:enumeration value="IFCROOF"/>
+              <xs:enumeration value="IFCWINDOW"/>
+              <xs:enumeration value="IFCDOOR"/>
+            </xs:restriction>
+          </name>
+        </entity>
+      </applicability>
+      <requirements>
+        <attribute>
+          <name>
+            <simpleValue>ObjectPlacement</simpleValue>
+          </name>
+        </attribute>
+      </requirements>
+    </specification>
+
+  </specifications>
+</ids>

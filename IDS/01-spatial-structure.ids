@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ids xmlns="http://standards.buildingsmart.org/IDS"
+     xmlns:xs="http://www.w3.org/2001/XMLSchema"
+     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+     xsi:schemaLocation="http://standards.buildingsmart.org/IDS http://standards.buildingsmart.org/IDS/1.0/ids.xsd">
+  <info>
+    <title>Energy Model - Spatial Structure Requirements</title>
+    <description>Validates the spatial hierarchy required for energy modeling (Site, Building, Storey, Space)</description>
+    <author>bruno@postle.net</author>
+    <date>2026-01-13</date>
+    <purpose>Energy Analysis</purpose>
+  </info>
+  <specifications>
+
+    <!-- Rule 1: Site Existence -->
+    <specification name="Site Existence" ifcVersion="IFC2X3 IFC4">
+      <applicability>
+        <entity>
+          <name>
+            <simpleValue>IFCSITE</simpleValue>
+          </name>
+        </entity>
+      </applicability>
+      <requirements/>
+    </specification>
+
+    <!-- Rule 2: Site Location - RefLatitude -->
+    <specification name="Site Has RefLatitude" ifcVersion="IFC2X3 IFC4">
+      <applicability>
+        <entity>
+          <name>
+            <simpleValue>IFCSITE</simpleValue>
+          </name>
+        </entity>
+      </applicability>
+      <requirements>
+        <attribute>
+          <name>
+            <simpleValue>RefLatitude</simpleValue>
+          </name>
+        </attribute>
+      </requirements>
+    </specification>
+
+    <!-- Rule 2: Site Location - RefLongitude -->
+    <specification name="Site Has RefLongitude" ifcVersion="IFC2X3 IFC4">
+      <applicability>
+        <entity>
+          <name>
+            <simpleValue>IFCSITE</simpleValue>
+          </name>
+        </entity>
+      </applicability>
+      <requirements>
+        <attribute>
+          <name>
+            <simpleValue>RefLongitude</simpleValue>
+          </name>
+        </attribute>
+      </requirements>
+    </specification>
+
+    <!-- Rule 2: Site Location - RefElevation -->
+    <specification name="Site Has RefElevation" ifcVersion="IFC2X3 IFC4">
+      <applicability>
+        <entity>
+          <name>
+            <simpleValue>IFCSITE</simpleValue>
+          </name>
+        </entity>
+      </applicability>
+      <requirements>
+        <attribute>
+          <name>
+            <simpleValue>RefElevation</simpleValue>
+          </name>
+        </attribute>
+      </requirements>
+    </specification>
+
+    <!-- Rule 3: Site Address
+         Note: SiteAddress attribute is deprecated in IFC4x3. For IFC4x3+ models, use Pset_Address instead.
+         Current rule supports IFC2X3 and IFC4 only. -->
+    <specification name="Site Has Address with PostalCode" ifcVersion="IFC2X3 IFC4">
+      <applicability>
+        <entity>
+          <name>
+            <simpleValue>IFCSITE</simpleValue>
+          </name>
+        </entity>
+      </applicability>
+      <requirements>
+        <attribute>
+          <name>
+            <simpleValue>SiteAddress</simpleValue>
+          </name>
+        </attribute>
+      </requirements>
+    </specification>
+
+    <!-- Rule 4: Building Existence -->
+    <specification name="Building Existence" ifcVersion="IFC2X3 IFC4">
+      <applicability>
+        <entity>
+          <name>
+            <simpleValue>IFCBUILDING</simpleValue>
+          </name>
+        </entity>
+      </applicability>
+      <requirements/>
+    </specification>
+
+    <!-- Rule 5: Building in Site -->
+    <specification name="Building Contained in Site" ifcVersion="IFC2X3 IFC4">
+      <applicability>
+        <entity>
+          <name>
+            <simpleValue>IFCBUILDING</simpleValue>
+          </name>
+        </entity>
+      </applicability>
+      <requirements>
+        <partOf relation="IFCRELAGGREGATES">
+          <entity>
+            <name>
+              <simpleValue>IFCSITE</simpleValue>
+            </name>
+          </entity>
+        </partOf>
+      </requirements>
+    </specification>
+
+    <!-- Rule 6: Building Storey Existence -->
+    <specification name="Building Storey Existence" ifcVersion="IFC2X3 IFC4">
+      <applicability>
+        <entity>
+          <name>
+            <simpleValue>IFCBUILDINGSTOREY</simpleValue>
+          </name>
+        </entity>
+      </applicability>
+      <requirements/>
+    </specification>
+
+    <!-- Rule 7: Storey in Building -->
+    <specification name="Storey Contained in Building" ifcVersion="IFC2X3 IFC4">
+      <applicability>
+        <entity>
+          <name>
+            <simpleValue>IFCBUILDINGSTOREY</simpleValue>
+          </name>
+        </entity>
+      </applicability>
+      <requirements>
+        <partOf relation="IFCRELAGGREGATES">
+          <entity>
+            <name>
+              <simpleValue>IFCBUILDING</simpleValue>
+            </name>
+          </entity>
+        </partOf>
+      </requirements>
+    </specification>
+
+    <!-- Rule 8: Space Existence -->
+    <specification name="Space Existence" ifcVersion="IFC2X3 IFC4">
+      <applicability>
+        <entity>
+          <name>
+            <simpleValue>IFCSPACE</simpleValue>
+          </name>
+        </entity>
+      </applicability>
+      <requirements/>
+    </specification>
+
+    <!-- Rule 9: Space in Storey -->
+    <specification name="Space Contained in Storey" ifcVersion="IFC2X3 IFC4">
+      <applicability>
+        <entity>
+          <name>
+            <simpleValue>IFCSPACE</simpleValue>
+          </name>
+        </entity>
+      </applicability>
+      <requirements>
+        <partOf relation="IFCRELAGGREGATES">
+          <entity>
+            <name>
+              <simpleValue>IFCBUILDINGSTOREY</simpleValue>
+            </name>
+          </entity>
+        </partOf>
+      </requirements>
+    </specification>
+
+  </specifications>
+</ids>

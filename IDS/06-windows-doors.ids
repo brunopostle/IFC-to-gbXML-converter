@@ -1,0 +1,341 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ids xmlns="http://standards.buildingsmart.org/IDS"
+     xmlns:xs="http://www.w3.org/2001/XMLSchema"
+     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+     xsi:schemaLocation="http://standards.buildingsmart.org/IDS http://standards.buildingsmart.org/IDS/1.0/ids.xsd">
+  <info>
+    <title>Energy Model - Windows and Doors Requirements</title>
+    <description>Validates window and door properties for energy modeling including U-values, SHGC, and glazing properties</description>
+    <author>bruno@postle.net</author>
+    <date>2026-01-13</date>
+    <purpose>Energy Analysis</purpose>
+  </info>
+  <specifications>
+
+    <!-- Rule 40: Window Type Existence
+         Note: IsTypedBy is an inverse attribute (derived from IfcRelDefinesByType)
+         which IDS cannot validate. This rule checks that IfcWindowType entities exist. -->
+    <specification name="Window Types Exist" ifcVersion="IFC2X3 IFC4">
+      <applicability>
+        <entity>
+          <name>
+            <simpleValue>IFCWINDOWTYPE</simpleValue>
+          </name>
+        </entity>
+      </applicability>
+      <requirements/>
+    </specification>
+
+    <!-- Rule 40: Door Type Existence
+         Note: IsTypedBy is an inverse attribute (derived from IfcRelDefinesByType)
+         which IDS cannot validate. This rule checks that IfcDoorType entities exist. -->
+    <specification name="Door Types Exist" ifcVersion="IFC2X3 IFC4">
+      <applicability>
+        <entity>
+          <name>
+            <simpleValue>IFCDOORTYPE</simpleValue>
+          </name>
+        </entity>
+      </applicability>
+      <requirements/>
+    </specification>
+
+    <!-- Rule 41: Window/Door Parent Boundary (IFC4)
+         Note: IDS cannot validate that specific boundaries (related to windows/doors) have parents.
+         This rule checks that 2nd level boundaries CAN have ParentBoundary defined. -->
+
+    <!-- Rule 41: FillsVoids Relationships Exist
+         Note: FillsVoids is an inverse attribute (derived from IfcRelFillsElement.RelatedBuildingElement)
+         which IDS cannot validate. This rule checks that IfcRelFillsElement relationships exist. -->
+    <specification name="FillsElement Relationships Exist" ifcVersion="IFC2X3 IFC4">
+      <applicability>
+        <entity>
+          <name>
+            <simpleValue>IFCRELFILLSELEMENT</simpleValue>
+          </name>
+        </entity>
+      </applicability>
+      <requirements/>
+    </specification>
+
+    <!-- Rule 42: Window U-Value (IFC4) -->
+    <specification name="Windows Have Thermal Transmittance (IFC4)" ifcVersion="IFC4">
+      <applicability>
+        <entity>
+          <name>
+            <simpleValue>IFCWINDOWTYPE</simpleValue>
+          </name>
+        </entity>
+      </applicability>
+      <requirements>
+        <property dataType="IFCTHERMALTRANSMITTANCEMEASURE" cardinality="optional">
+          <propertySet>
+            <simpleValue>Pset_WindowCommon</simpleValue>
+          </propertySet>
+          <baseName>
+            <simpleValue>ThermalTransmittance</simpleValue>
+          </baseName>
+          <value>
+            <xs:restriction base="xs:double">
+              <xs:minInclusive value="0.1"/>
+              <xs:maxInclusive value="6.0"/>
+            </xs:restriction>
+          </value>
+        </property>
+      </requirements>
+    </specification>
+
+    <!-- Rule 42: Window U-Value (IFC2X3) -->
+    <specification name="Windows Have U-Value (IFC2X3)" ifcVersion="IFC2X3">
+      <applicability>
+        <entity>
+          <name>
+            <simpleValue>IFCWINDOW</simpleValue>
+          </name>
+        </entity>
+      </applicability>
+      <requirements>
+        <property dataType="IFCREAL" cardinality="optional">
+          <propertySet>
+            <simpleValue>Analytical Properties(Type)</simpleValue>
+          </propertySet>
+          <baseName>
+            <simpleValue>Heat Transfer Coefficient (U)</simpleValue>
+          </baseName>
+        </property>
+      </requirements>
+    </specification>
+
+    <!-- Rule 43: Door U-Value -->
+    <specification name="Doors Have Thermal Transmittance" ifcVersion="IFC2X3 IFC4">
+      <applicability>
+        <entity>
+          <name>
+            <simpleValue>IFCDOORTYPE</simpleValue>
+          </name>
+        </entity>
+      </applicability>
+      <requirements>
+        <property dataType="IFCTHERMALTRANSMITTANCEMEASURE" cardinality="optional">
+          <propertySet>
+            <simpleValue>Pset_DoorCommon</simpleValue>
+          </propertySet>
+          <baseName>
+            <simpleValue>ThermalTransmittance</simpleValue>
+          </baseName>
+          <value>
+            <xs:restriction base="xs:double">
+              <xs:minInclusive value="0.1"/>
+              <xs:maxInclusive value="6.0"/>
+            </xs:restriction>
+          </value>
+        </property>
+      </requirements>
+    </specification>
+
+    <!-- Rule 44: Window Glazing Area Fraction (IFC4) -->
+    <specification name="Windows Have Glazing Area Fraction (IFC4)" ifcVersion="IFC4">
+      <applicability>
+        <entity>
+          <name>
+            <simpleValue>IFCWINDOWTYPE</simpleValue>
+          </name>
+        </entity>
+      </applicability>
+      <requirements>
+        <property dataType="IFCPOSITIVERATIOMEASURE" cardinality="optional">
+          <propertySet>
+            <simpleValue>Pset_WindowCommon</simpleValue>
+          </propertySet>
+          <baseName>
+            <simpleValue>GlazingAreaFraction</simpleValue>
+          </baseName>
+        </property>
+      </requirements>
+    </specification>
+
+    <!-- Rule 44: Window Transmittance (IFC2X3) -->
+    <specification name="Windows Have Visual Light Transmittance (IFC2X3)" ifcVersion="IFC2X3">
+      <applicability>
+        <entity>
+          <name>
+            <simpleValue>IFCWINDOW</simpleValue>
+          </name>
+        </entity>
+      </applicability>
+      <requirements>
+        <property dataType="IFCREAL" cardinality="optional">
+          <propertySet>
+            <simpleValue>Analytical Properties(Type)</simpleValue>
+          </propertySet>
+          <baseName>
+            <simpleValue>Visual Light Transmittance</simpleValue>
+          </baseName>
+        </property>
+      </requirements>
+    </specification>
+
+    <!-- Rule 45: Solar Heat Gain Coefficient -->
+    <specification name="Windows Have SHGC" ifcVersion="IFC2X3">
+      <applicability>
+        <entity>
+          <name>
+            <simpleValue>IFCWINDOW</simpleValue>
+          </name>
+        </entity>
+      </applicability>
+      <requirements>
+        <property dataType="IFCREAL" cardinality="optional">
+          <propertySet>
+            <simpleValue>Analytical Properties(Type)</simpleValue>
+          </propertySet>
+          <baseName>
+            <simpleValue>Solar Heat Gain Coefficient</simpleValue>
+          </baseName>
+        </property>
+      </requirements>
+    </specification>
+
+    <!-- Rule 46: Window Type Name -->
+    <specification name="Window Types Have Name" ifcVersion="IFC2X3 IFC4">
+      <applicability>
+        <entity>
+          <name>
+            <simpleValue>IFCWINDOWTYPE</simpleValue>
+          </name>
+        </entity>
+      </applicability>
+      <requirements>
+        <attribute>
+          <name>
+            <simpleValue>Name</simpleValue>
+          </name>
+        </attribute>
+      </requirements>
+    </specification>
+
+    <!-- Rule 46: Door Type Name -->
+    <specification name="Door Types Have Name" ifcVersion="IFC2X3 IFC4">
+      <applicability>
+        <entity>
+          <name>
+            <simpleValue>IFCDOORTYPE</simpleValue>
+          </name>
+        </entity>
+      </applicability>
+      <requirements>
+        <attribute>
+          <name>
+            <simpleValue>Name</simpleValue>
+          </name>
+        </attribute>
+      </requirements>
+    </specification>
+
+    <!-- Rule 47: Window Frame Thickness -->
+    <specification name="Windows Have Frame Thickness" ifcVersion="IFC2X3 IFC4">
+      <applicability>
+        <entity>
+          <name>
+            <simpleValue>IFCWINDOWTYPE</simpleValue>
+          </name>
+        </entity>
+      </applicability>
+      <requirements>
+        <property dataType="IFCPOSITIVELENGTHMEASURE" cardinality="optional">
+          <propertySet>
+            <simpleValue>Pset_WindowCommon</simpleValue>
+          </propertySet>
+          <baseName>
+            <simpleValue>FrameThickness</simpleValue>
+          </baseName>
+        </property>
+      </requirements>
+    </specification>
+
+    <!-- Rule 47: Window Frame Conductivity -->
+    <specification name="Windows Have Frame Conductivity" ifcVersion="IFC2X3 IFC4">
+      <applicability>
+        <entity>
+          <name>
+            <simpleValue>IFCWINDOWTYPE</simpleValue>
+          </name>
+        </entity>
+      </applicability>
+      <requirements>
+        <property dataType="IFCTHERMALTRANSMITTANCEMEASURE" cardinality="optional">
+          <propertySet>
+            <simpleValue>Pset_WindowCommon</simpleValue>
+          </propertySet>
+          <baseName>
+            <simpleValue>FrameConductivity</simpleValue>
+          </baseName>
+        </property>
+      </requirements>
+    </specification>
+
+    <!-- Rule 48: Glazing Layers -->
+    <specification name="Windows Have Glass Layers" ifcVersion="IFC2X3 IFC4">
+      <applicability>
+        <entity>
+          <name>
+            <simpleValue>IFCWINDOWTYPE</simpleValue>
+          </name>
+        </entity>
+      </applicability>
+      <requirements>
+        <property dataType="IFCINTEGER" cardinality="optional">
+          <propertySet>
+            <simpleValue>Pset_WindowCommon</simpleValue>
+          </propertySet>
+          <baseName>
+            <simpleValue>GlassLayers</simpleValue>
+          </baseName>
+        </property>
+      </requirements>
+    </specification>
+
+    <!-- Rule 48: Glass Thickness -->
+    <specification name="Windows Have Glass Thickness" ifcVersion="IFC2X3 IFC4">
+      <applicability>
+        <entity>
+          <name>
+            <simpleValue>IFCWINDOWTYPE</simpleValue>
+          </name>
+        </entity>
+      </applicability>
+      <requirements>
+        <property dataType="IFCPOSITIVELENGTHMEASURE" cardinality="optional">
+          <propertySet>
+            <simpleValue>Pset_WindowCommon</simpleValue>
+          </propertySet>
+          <baseName>
+            <simpleValue>GlassThickness</simpleValue>
+          </baseName>
+        </property>
+      </requirements>
+    </specification>
+
+    <!-- Rule 50: Window Shading Device Type -->
+    <specification name="Windows Have Shading Device Type" ifcVersion="IFC2X3 IFC4">
+      <applicability>
+        <entity>
+          <name>
+            <simpleValue>IFCWINDOWTYPE</simpleValue>
+          </name>
+        </entity>
+      </applicability>
+      <requirements>
+        <property dataType="IFCLABEL" cardinality="optional">
+          <propertySet>
+            <simpleValue>Pset_WindowCommon</simpleValue>
+          </propertySet>
+          <baseName>
+            <simpleValue>ShadingDeviceType</simpleValue>
+          </baseName>
+        </property>
+      </requirements>
+    </specification>
+
+  </specifications>
+</ids>

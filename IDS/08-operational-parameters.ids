@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ids xmlns="http://standards.buildingsmart.org/IDS"
+     xmlns:xs="http://www.w3.org/2001/XMLSchema"
+     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+     xsi:schemaLocation="http://standards.buildingsmart.org/IDS http://standards.buildingsmart.org/IDS/1.0/ids.xsd">
+  <info>
+    <title>Energy Model - Operational Parameters Requirements</title>
+    <description>Validates operational parameters including ventilation, internal loads, occupancy, and HVAC zones for energy modeling</description>
+    <author>bruno@postle.net</author>
+    <date>2026-01-13</date>
+    <purpose>Energy Analysis</purpose>
+  </info>
+  <specifications>
+
+    <!-- Rule 55: Building Air Tightness -->
+    <specification name="Building Has Air Tightness" ifcVersion="IFC2X3 IFC4">
+      <applicability>
+        <entity>
+          <name>
+            <simpleValue>IFCBUILDING</simpleValue>
+          </name>
+        </entity>
+      </applicability>
+      <requirements>
+        <property dataType="IFCREAL" cardinality="optional">
+          <propertySet>
+            <simpleValue>Pset_BuildingCommon</simpleValue>
+          </propertySet>
+          <baseName>
+            <simpleValue>AirTightness</simpleValue>
+          </baseName>
+        </property>
+      </requirements>
+    </specification>
+
+    <!-- Rule 56: Space Nominal Air Flow -->
+    <specification name="Spaces Have Nominal Air Flow" ifcVersion="IFC2X3 IFC4">
+      <applicability>
+        <entity>
+          <name>
+            <simpleValue>IFCSPACE</simpleValue>
+          </name>
+        </entity>
+      </applicability>
+      <requirements>
+        <property dataType="IFCVOLUMETRICFLOWRATEMEASURE" cardinality="optional">
+          <propertySet>
+            <simpleValue>Pset_SpaceCommon</simpleValue>
+          </propertySet>
+          <baseName>
+            <simpleValue>NominalAirFlow</simpleValue>
+          </baseName>
+        </property>
+      </requirements>
+    </specification>
+
+    <!-- Rule 56: Space Air Change Rate -->
+    <specification name="Spaces Have Air Change Rate" ifcVersion="IFC2X3 IFC4">
+      <applicability>
+        <entity>
+          <name>
+            <simpleValue>IFCSPACE</simpleValue>
+          </name>
+        </entity>
+      </applicability>
+      <requirements>
+        <property dataType="IFCREAL" cardinality="optional">
+          <propertySet>
+            <simpleValue>Pset_SpaceCommon</simpleValue>
+          </propertySet>
+          <baseName>
+            <simpleValue>AirChangeRate</simpleValue>
+          </baseName>
+        </property>
+      </requirements>
+    </specification>
+
+    <!-- Rule 58: Lighting Power Density -->
+    <specification name="Spaces Have Lighting Power Density" ifcVersion="IFC2X3 IFC4">
+      <applicability>
+        <entity>
+          <name>
+            <simpleValue>IFCSPACE</simpleValue>
+          </name>
+        </entity>
+      </applicability>
+      <requirements>
+        <property dataType="IFCREAL" cardinality="optional">
+          <propertySet>
+            <simpleValue>Pset_SpaceCommon</simpleValue>
+          </propertySet>
+          <baseName>
+            <simpleValue>LightingPowerDensity</simpleValue>
+          </baseName>
+        </property>
+      </requirements>
+    </specification>
+
+    <!-- Rule 59: Equipment Power Density -->
+    <specification name="Spaces Have Equipment Power Density" ifcVersion="IFC2X3 IFC4">
+      <applicability>
+        <entity>
+          <name>
+            <simpleValue>IFCSPACE</simpleValue>
+          </name>
+        </entity>
+      </applicability>
+      <requirements>
+        <property dataType="IFCREAL" cardinality="optional">
+          <propertySet>
+            <simpleValue>Pset_SpaceCommon</simpleValue>
+          </propertySet>
+          <baseName>
+            <simpleValue>EquipmentPowerDensity</simpleValue>
+          </baseName>
+        </property>
+      </requirements>
+    </specification>
+
+    <!-- Rule 60: Occupant Density -->
+    <specification name="Spaces Have Occupancy Density" ifcVersion="IFC2X3 IFC4">
+      <applicability>
+        <entity>
+          <name>
+            <simpleValue>IFCSPACE</simpleValue>
+          </name>
+        </entity>
+      </applicability>
+      <requirements>
+        <property dataType="IFCREAL" cardinality="optional">
+          <propertySet>
+            <simpleValue>Pset_SpaceCommon</simpleValue>
+          </propertySet>
+          <baseName>
+            <simpleValue>OccupancyDensity</simpleValue>
+          </baseName>
+        </property>
+      </requirements>
+    </specification>
+
+    <!-- Rule 60: Number of Occupants (Alternative) -->
+    <specification name="Spaces Have Number of Occupants (IFC4)" ifcVersion="IFC4">
+      <applicability>
+        <entity>
+          <name>
+            <simpleValue>IFCSPACE</simpleValue>
+          </name>
+        </entity>
+      </applicability>
+      <requirements>
+        <property dataType="IFCCOUNTMEASURE" cardinality="optional">
+          <propertySet>
+            <simpleValue>Qto_SpaceBaseQuantities</simpleValue>
+          </propertySet>
+          <baseName>
+            <simpleValue>NumberOfOccupants</simpleValue>
+          </baseName>
+        </property>
+      </requirements>
+    </specification>
+
+    <!-- Rule 61: Slab External Property for Ground Contact -->
+    <specification name="Slabs Have IsExternal for Ground Contact" ifcVersion="IFC2X3 IFC4">
+      <applicability>
+        <entity>
+          <name>
+            <simpleValue>IFCSLAB</simpleValue>
+          </name>
+        </entity>
+      </applicability>
+      <requirements>
+        <property dataType="IFCBOOLEAN" cardinality="optional">
+          <propertySet>
+            <simpleValue>Pset_SlabCommon</simpleValue>
+          </propertySet>
+          <baseName>
+            <simpleValue>IsExternal</simpleValue>
+          </baseName>
+        </property>
+      </requirements>
+    </specification>
+
+  </specifications>
+</ids>

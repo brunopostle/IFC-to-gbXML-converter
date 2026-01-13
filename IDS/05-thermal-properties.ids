@@ -1,0 +1,326 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ids xmlns="http://standards.buildingsmart.org/IDS"
+     xmlns:xs="http://www.w3.org/2001/XMLSchema"
+     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+     xsi:schemaLocation="http://standards.buildingsmart.org/IDS http://standards.buildingsmart.org/IDS/1.0/ids.xsd">
+  <info>
+    <title>Energy Model - Thermal Properties Requirements</title>
+    <description>Validates thermal properties (U-values, R-values, conductivity) for energy modeling</description>
+    <author>bruno@postle.net</author>
+    <date>2026-01-13</date>
+    <purpose>Energy Analysis</purpose>
+  </info>
+  <specifications>
+
+    <!-- Rule 31: Wall U-Value (IFC4) -->
+    <specification name="Walls Have ThermalTransmittance (IFC4)" ifcVersion="IFC4">
+      <applicability>
+        <entity>
+          <name>
+            <simpleValue>IFCWALL</simpleValue>
+          </name>
+        </entity>
+      </applicability>
+      <requirements>
+        <property dataType="IFCTHERMALTRANSMITTANCEMEASURE" cardinality="optional">
+          <propertySet>
+            <simpleValue>Pset_WallCommon</simpleValue>
+          </propertySet>
+          <baseName>
+            <simpleValue>ThermalTransmittance</simpleValue>
+          </baseName>
+        </property>
+      </requirements>
+    </specification>
+
+    <!-- Rule 31: Wall U-Value (IFC2X3) -->
+    <specification name="Walls Have U-Value (IFC2X3)" ifcVersion="IFC2X3">
+      <applicability>
+        <entity>
+          <name>
+            <simpleValue>IFCWALL</simpleValue>
+          </name>
+        </entity>
+      </applicability>
+      <requirements>
+        <property dataType="IFCREAL" cardinality="optional">
+          <propertySet>
+            <simpleValue>Analytical Properties(Type)</simpleValue>
+          </propertySet>
+          <baseName>
+            <simpleValue>Heat Transfer Coefficient (U)</simpleValue>
+          </baseName>
+        </property>
+      </requirements>
+    </specification>
+
+    <!-- Rule 31: Slab U-Value -->
+    <specification name="Slabs Have Thermal Transmittance" ifcVersion="IFC2X3 IFC4">
+      <applicability>
+        <entity>
+          <name>
+            <simpleValue>IFCSLAB</simpleValue>
+          </name>
+        </entity>
+      </applicability>
+      <requirements>
+        <property dataType="IFCTHERMALTRANSMITTANCEMEASURE" cardinality="optional">
+          <propertySet>
+            <simpleValue>Pset_SlabCommon</simpleValue>
+          </propertySet>
+          <baseName>
+            <simpleValue>ThermalTransmittance</simpleValue>
+          </baseName>
+          <value>
+            <xs:restriction base="xs:double">
+              <xs:minInclusive value="0.1"/>
+              <xs:maxInclusive value="6.0"/>
+            </xs:restriction>
+          </value>
+        </property>
+      </requirements>
+    </specification>
+
+    <!-- Rule 31: Roof U-Value -->
+    <specification name="Roofs Have U-Value" ifcVersion="IFC2X3 IFC4">
+      <applicability>
+        <entity>
+          <name>
+            <simpleValue>IFCROOF</simpleValue>
+          </name>
+        </entity>
+      </applicability>
+      <requirements>
+        <property dataType="IFCTHERMALTRANSMITTANCEMEASURE" cardinality="optional">
+          <propertySet>
+            <simpleValue>Pset_RoofCommon</simpleValue>
+          </propertySet>
+          <baseName>
+            <simpleValue>ThermalTransmittance</simpleValue>
+          </baseName>
+          <value>
+            <xs:restriction base="xs:double">
+              <xs:minInclusive value="0.1"/>
+              <xs:maxInclusive value="6.0"/>
+            </xs:restriction>
+          </value>
+        </property>
+      </requirements>
+    </specification>
+
+    <!-- Rule 32: Material R-Value (IFC4) -->
+    <specification name="Material Has R-Value (IFC4)" ifcVersion="IFC4">
+      <applicability>
+        <entity>
+          <name>
+            <simpleValue>IFCMATERIAL</simpleValue>
+          </name>
+        </entity>
+      </applicability>
+      <requirements>
+        <property dataType="IFCTHERMALTRANSMITTANCEMEASURE" cardinality="optional">
+          <propertySet>
+            <simpleValue>Pset_MaterialEnergy</simpleValue>
+          </propertySet>
+          <baseName>
+            <simpleValue>ThermalConductivityTemperatureDerivative</simpleValue>
+          </baseName>
+          <value>
+            <xs:restriction base="xs:double">
+              <xs:minExclusive value="0"/>
+            </xs:restriction>
+          </value>
+        </property>
+      </requirements>
+    </specification>
+
+    <!-- Rule 32: Material R-Value (IFC2X3) -->
+    <specification name="Material Has R-Value (IFC2X3)" ifcVersion="IFC2X3">
+      <applicability>
+        <entity>
+          <name>
+            <simpleValue>IFCMATERIAL</simpleValue>
+          </name>
+        </entity>
+      </applicability>
+      <requirements>
+        <property dataType="IFCREAL" cardinality="optional">
+          <propertySet>
+            <simpleValue>Analytical Properties(Type)</simpleValue>
+          </propertySet>
+          <baseName>
+            <simpleValue>Thermal Resistance (R)</simpleValue>
+          </baseName>
+          <value>
+            <xs:restriction base="xs:double">
+              <xs:minExclusive value="0"/>
+            </xs:restriction>
+          </value>
+        </property>
+      </requirements>
+    </specification>
+
+    <!-- Rule 33: Material U-Value Alternative -->
+    <specification name="Material Has U-Value (IFC2X3)" ifcVersion="IFC2X3">
+      <applicability>
+        <entity>
+          <name>
+            <simpleValue>IFCMATERIAL</simpleValue>
+          </name>
+        </entity>
+      </applicability>
+      <requirements>
+        <property dataType="IFCREAL" cardinality="optional">
+          <propertySet>
+            <simpleValue>Analytical Properties(Type)</simpleValue>
+          </propertySet>
+          <baseName>
+            <simpleValue>Heat Transfer Coefficient (U)</simpleValue>
+          </baseName>
+        </property>
+      </requirements>
+    </specification>
+
+    <!-- Rule 34: Absorptance Property (IFC2X3) -->
+    <specification name="Elements Have Absorptance" ifcVersion="IFC2X3">
+      <applicability>
+        <entity>
+          <name>
+            <xs:restriction base="xs:string">
+              <xs:enumeration value="IFCWALL"/>
+              <xs:enumeration value="IFCSLAB"/>
+              <xs:enumeration value="IFCROOF"/>
+            </xs:restriction>
+          </name>
+        </entity>
+      </applicability>
+      <requirements>
+        <property dataType="IFCREAL" cardinality="optional">
+          <propertySet>
+            <simpleValue>Analytical Properties(Type)</simpleValue>
+          </propertySet>
+          <baseName>
+            <simpleValue>Absorptance</simpleValue>
+          </baseName>
+        </property>
+      </requirements>
+    </specification>
+
+    <!-- Rule 35: Material Thermal Conductivity -->
+    <specification name="Material Has Thermal Conductivity" ifcVersion="IFC4">
+      <applicability>
+        <entity>
+          <name>
+            <simpleValue>IFCMATERIAL</simpleValue>
+          </name>
+        </entity>
+      </applicability>
+      <requirements>
+        <property dataType="IFCTHERMALTRANSMITTANCEMEASURE" cardinality="optional">
+          <propertySet>
+            <simpleValue>Pset_MaterialThermal</simpleValue>
+          </propertySet>
+          <baseName>
+            <simpleValue>ThermalConductivity</simpleValue>
+          </baseName>
+        </property>
+      </requirements>
+    </specification>
+
+    <!-- Rule 36: Material Density -->
+    <specification name="Material Has Density" ifcVersion="IFC2X3 IFC4">
+      <applicability>
+        <entity>
+          <name>
+            <simpleValue>IFCMATERIAL</simpleValue>
+          </name>
+        </entity>
+      </applicability>
+      <requirements>
+        <property dataType="IFCMASSDENSITYMEASURE" cardinality="optional">
+          <propertySet>
+            <simpleValue>Pset_MaterialCommon</simpleValue>
+          </propertySet>
+          <baseName>
+            <simpleValue>MassDensity</simpleValue>
+          </baseName>
+        </property>
+      </requirements>
+    </specification>
+
+    <!-- Rule 37: Material Specific Heat -->
+    <specification name="Material Has Specific Heat Capacity" ifcVersion="IFC4">
+      <applicability>
+        <entity>
+          <name>
+            <simpleValue>IFCMATERIAL</simpleValue>
+          </name>
+        </entity>
+      </applicability>
+      <requirements>
+        <property dataType="IFCSPECIFICHEATCAPACITYMEASURE" cardinality="optional">
+          <propertySet>
+            <simpleValue>Pset_MaterialThermal</simpleValue>
+          </propertySet>
+          <baseName>
+            <simpleValue>SpecificHeatCapacity</simpleValue>
+          </baseName>
+        </property>
+      </requirements>
+    </specification>
+
+    <!-- Rule 38: Valid U-Value Range -->
+    <specification name="U-Value Within Valid Range (Walls)" ifcVersion="IFC2X3 IFC4">
+      <applicability>
+        <entity>
+          <name>
+            <simpleValue>IFCWALL</simpleValue>
+          </name>
+        </entity>
+      </applicability>
+      <requirements>
+        <property dataType="IFCTHERMALTRANSMITTANCEMEASURE" cardinality="optional">
+          <propertySet>
+            <simpleValue>Pset_WallCommon</simpleValue>
+          </propertySet>
+          <baseName>
+            <simpleValue>ThermalTransmittance</simpleValue>
+          </baseName>
+          <value>
+            <xs:restriction base="xs:double">
+              <xs:minInclusive value="0.1"/>
+              <xs:maxInclusive value="6.0"/>
+            </xs:restriction>
+          </value>
+        </property>
+      </requirements>
+    </specification>
+
+    <!-- Rule 39: Valid R-Value Range -->
+    <specification name="R-Value Greater Than Zero" ifcVersion="IFC4">
+      <applicability>
+        <entity>
+          <name>
+            <simpleValue>IFCMATERIAL</simpleValue>
+          </name>
+        </entity>
+      </applicability>
+      <requirements>
+        <property dataType="IFCTHERMALTRANSMITTANCEMEASURE" cardinality="optional">
+          <propertySet>
+            <simpleValue>Pset_MaterialEnergy</simpleValue>
+          </propertySet>
+          <baseName>
+            <simpleValue>ThermalConductivityTemperatureDerivative</simpleValue>
+          </baseName>
+          <value>
+            <xs:restriction base="xs:double">
+              <xs:minExclusive value="0"/>
+            </xs:restriction>
+          </value>
+        </property>
+      </requirements>
+    </specification>
+
+  </specifications>
+</ids>
